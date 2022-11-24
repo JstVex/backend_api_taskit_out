@@ -21,19 +21,19 @@ userSchema.statics.signup = async function (email, password) {
 
     // validation
     if (!email || !password) {
-        throw Error('All fields must be filled')
+        throw Error('all fields must be filled:(')
     }
     if (!validator.isEmail(email)) {
-        throw Error('Email not valid')
+        throw Error('email not valid:(')
     }
     if (!validator.isStrongPassword(password)) {
-        throw Error('Password not strong enough')
+        throw Error('password not strong enough:(')
     }
 
     const exists = await this.findOne({ email })
 
     if (exists) {
-        throw Error('Email already in use')
+        throw Error('email already in use:(')
     }
 
     const salt = await bcrypt.genSalt(10)
