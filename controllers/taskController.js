@@ -3,27 +3,33 @@ const mongoose = require('mongoose');
 
 // get all tasks
 const getTasks = async (req, res) => {
-    const tasks = await Task.find({}).sort({ starred: -1, checked: 1 });
+    const user_id = req.user._id
+    const tasks = await Task.find({ user_id }).sort({ starred: -1, checked: 1 });
     res.status(200).json(tasks)
 }
 
 const getStarredTasks = async (req, res) => {
-    const tasks = await Task.find({ starred: true }).sort({ starred: -1, checked: 1 });
+    const user_id = req.user._id
+    const tasks = await Task.find({ user_id, starred: true }).sort({ starred: -1, checked: 1 });
     res.status(200).json(tasks)
 }
 
 const getFinishedTasks = async (req, res) => {
-    const tasks = await Task.find({ checked: true }).sort({ starred: -1, checked: 1 });
+    const user_id = req.user._id
+    const tasks = await Task.find({ user_id, checked: true }).sort({ starred: -1, checked: 1 });
     res.status(200).json(tasks)
 }
 
 const getMyDayTasks = async (req, res) => {
-    const tasks = await Task.find({ extra: "my day" }).sort({ starred: -1, checked: 1 });
+    const user_id = req.user._id
+    const tasks = await Task.find({ user_id, extra: "my day" }).sort({ starred: -1, checked: 1 });
     res.status(200).json(tasks)
 }
 
 const getPlannedTasks = async (req, res) => {
+    const user_id = req.user._id
     const tasks = await Task.find({
+        user_id,
         planned: { $exists: true },
         $expr: { $gt: [{ $strLenCP: '$planned' }, 1] }
     }).sort({ starred: -1, checked: 1 });
@@ -62,7 +68,8 @@ const createTask = async (req, res) => {
     }
 
     try {
-        const taskie = await Task.create({ task, checked, starred, extra, note })
+        const user_id = req.user._id
+        const taskie = await Task.create({ task, checked, starred, extra, note, user_id })
         res.status(200).json(taskie)
     } catch (error) {
         res.status(400).json({ error: error.message })
@@ -71,13 +78,14 @@ const createTask = async (req, res) => {
 
 // delete a task
 const deleteTask = async (req, res) => {
+    const user_id = req.user._id;
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: 'no such task:(' })
     }
 
-    const task = await Task.findOneAndDelete({ _id: id });
+    const task = await Task.findOneAndDelete({ _id: id, user_id });
 
     if (!task) {
         return res.status(404).json({ error: 'no such task:(' })
@@ -87,8 +95,9 @@ const deleteTask = async (req, res) => {
 }
 
 const deleteAllFinished = async (req, res) => {
+    const user_id = req.user._id;
 
-    const task = await Task.deleteMany({ checked: true });
+    const task = await Task.deleteMany({ checked: true, user_id });
 
     if (!task) {
         return res.status(404).json({ error: 'no such task:(' })
@@ -99,13 +108,14 @@ const deleteAllFinished = async (req, res) => {
 
 // update a task
 const updateTask = async (req, res) => {
+    const user_id = req.user._id;
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: 'no such task:(' })
     }
 
-    const task = await Task.findOneAndUpdate({ _id: id }, { ...req.body }, {
+    const task = await Task.findOneAndUpdate({ _id: id, user_id }, { ...req.body }, {
         new: true
     });
 

@@ -12,7 +12,12 @@ const {
     getPlannedTasks
 } = require('../controllers/taskController');
 
+const requireAuth = require('../middleware/requireAuth')
+
 const router = express();
+
+// require auth for all routes
+router.use(requireAuth)
 
 // get all tasks
 router.get('/', getTasks);

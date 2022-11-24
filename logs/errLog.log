@@ -1,0 +1,8 @@
+20221123	21:36:23	0cbed59c-72fc-4e08-9e65-d13abc5398e1	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks	http://localhost:3000
+20221123	21:36:23	f85a4c6f-9a03-4785-bf5f-7698fa1569c4	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks	http://localhost:3000
+20221123	21:36:34	0cf636b0-bd90-4e2a-a9bb-d7338a54c43e	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks/myday	http://localhost:3000
+20221123	21:36:34	b3a92f96-a2b5-46ec-ae15-748a90fda48b	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks/myday	http://localhost:3000
+20221123	21:37:52	97b88e4a-65bd-4578-9412-12d66d83db63	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks	http://localhost:3000
+20221123	21:37:52	e50d1b43-521d-430a-bb40-fe48e5871086	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks	http://localhost:3000
+20221123	21:37:59	1ed13a47-464d-4a2f-9b75-3211b2d00095	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks/myday	http://localhost:3000
+20221123	21:37:59	0d3d6740-19e7-4acb-acc2-5f19e1fe8bdc	TypeError: Cannot read properties of undefined (reading 'split')	GET	/api/tasks/myday	http://localhost:3000
