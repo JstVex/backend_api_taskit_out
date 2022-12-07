@@ -8,6 +8,12 @@ const getTasks = async (req, res) => {
     res.status(200).json(tasks)
 }
 
+const countTasks = async (req, res) => {
+    const user_id = req.user._id;
+    const count = await Task.countDocuments({ user_id });
+    res.status(200).json(count)
+}
+
 const getStarredTasks = async (req, res) => {
     const user_id = req.user._id
     const tasks = await Task.find({ user_id, starred: true }).sort({ starred: -1, checked: 1 });
@@ -136,5 +142,6 @@ module.exports = {
     getFinishedTasks,
     getMyDayTasks,
     deleteAllFinished,
-    getPlannedTasks
+    getPlannedTasks,
+    countTasks
 }

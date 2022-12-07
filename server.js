@@ -9,14 +9,8 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const tasksRoutes = require('./routes/tasks');
 const userRoutes = require('./routes/user')
-// const authRoutes = require('./routes/auth')
-
 
 const app = express();
-
-
-// middleware
-// app.use(logger)
 
 app.use(cookieParser())
 

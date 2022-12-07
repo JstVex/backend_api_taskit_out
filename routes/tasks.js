@@ -9,7 +9,8 @@ const {
     getFinishedTasks,
     getMyDayTasks,
     deleteAllFinished,
-    getPlannedTasks
+    getPlannedTasks,
+    countTasks
 } = require('../controllers/taskController');
 
 const requireAuth = require('../middleware/requireAuth')
@@ -21,6 +22,8 @@ router.use(requireAuth)
 
 // get all tasks
 router.get('/', getTasks);
+
+router.get('/counttasks', countTasks);
 
 router.get('/starred', getStarredTasks);
 
